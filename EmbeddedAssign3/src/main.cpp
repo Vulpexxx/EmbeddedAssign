@@ -2,7 +2,7 @@
  * @Author: vulpex 2267339737@qq.com
  * @Date: 2025-05-01 17:30:54
  * @LastEditors: vulpex 2267339737@qq.com
- * @LastEditTime: 2025-05-10 08:33:48
+ * @LastEditTime: 2025-05-10 10:33:30
  * @FilePath: \hw2\src\main.cpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,16 +10,17 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+// 屏幕分辨率
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
 
-#define SCREEN_WIDTH      128   // OLED display width, in pixels
-#define SCREEN_HEIGHT     64    // OLED display height, in pixels
-#define OLED_RESET        -1    // Reset pin # (or -1 if sharing Arduino reset pin)
-#define SCREEN_ADDRESS    0x3C  ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
-#include <Wire.h>
-#include <Adafruit_SSD1306.h>
+// IIC 地址
+#define SCREEN_ADDRESS 0x3C
 
-Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET);
+// 复位引脚
+#define OLED_RESET -1 
 
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 // 图片大小
 #define IMG_WIDTH    61
 #define IMG_HEIGHT   64
@@ -63,8 +64,7 @@ void setup()
 {
     Serial.begin(115200);
     delay(10);
-
-    if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS))
+    if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS))
     {
         Serial.println(F("OLED 初始化失败！"));
         while (1);
